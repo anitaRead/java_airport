@@ -24,6 +24,10 @@ public class AirportApplication {
 		}
 	}
 
+	public boolean inHangar(String planeName){
+		return 0 > planes.indexOf(planeName);
+	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(AirportApplication.class, args);
 	}

@@ -25,6 +25,7 @@ class AirportApplicationTests {
 //	So I can get passengers on the way to their destination
 //	I want to instruct a plane to take off from an airport and confirm that it is no longer in the airport
 
+//	Take Off
 	@Test
 	public void takeOffPlane() {
 		AirportApplication airport = new AirportApplication();
@@ -36,5 +37,16 @@ class AirportApplicationTests {
 		Assertions.assertEquals("Plane One", airport.planes.get(0));
 	}
 
+//	Check Planes
+	public void checkHangar() {
+		AirportApplication airport = new AirportApplication();
+		airport.landPlane("Plane One");
+		airport.landPlane("Plane Two");
+		Assertions.assertEquals(true, airport.inHangar("Plane One"));
+		Assertions.assertEquals(false, airport.inHangar("Plane Three"));
+		airport.takeOff("Plane One");
+		Assertions.assertEquals(false, airport.inHangar("Plane One"));
+
+	}
 
 }
