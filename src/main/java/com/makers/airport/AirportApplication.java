@@ -9,8 +9,12 @@ public class AirportApplication {
 
 	ArrayList<String> planes = new ArrayList<>();
 
-	public void landPlane(String plane) {
-		planes.add(plane);
+	public String landPlane(String plane) {
+		if(planes.size() < 5) {
+			planes.add(plane);
+			return plane + " has successfully landed!";
+		}
+		return "Failed to land, airport is full!";
 	}
 
 	public boolean inHangar(String planeName){
