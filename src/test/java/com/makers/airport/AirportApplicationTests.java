@@ -11,4 +11,11 @@ class AirportApplicationTests {
 	void contextLoads() {
 	}
 
+	@Test
+	public void landOnePlane() {
+		AirportApplication airport = new AirportApplication();
+//		airport.landPlane("planeOne");
+		Assertions.assertEquals(1, airport.landPlane("planeOne"));
+	}
+
 }
