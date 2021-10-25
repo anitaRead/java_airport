@@ -11,11 +11,4 @@ class AirportApplicationTests {
 	void contextLoads() {
 	}
 
-	@Test
-	public void saysHello() {
-		AirportApplication airport = new AirportApplication();
-//		airport.sayHello("Bob");
-		Assertions.assertEquals("Hello, Bob!", airport.sayHello("Bob"));
-	}
-
 }
