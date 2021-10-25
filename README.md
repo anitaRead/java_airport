@@ -1,5 +1,4 @@
 # Java Airport
-=================
 
 ### Using Java, Spring Boot and JUnit to Test Drive the development of the Airport Challenge below.
 

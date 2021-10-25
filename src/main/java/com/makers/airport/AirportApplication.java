@@ -14,6 +14,16 @@ public class AirportApplication {
 		return planes.size();
 	}
 
+	public String takeOff(String planeName) {
+		int planeInd = planes.indexOf(planeName);
+		if (planeInd == -1) {
+			return "This plane is not in the hangar!";
+		} else {
+			planes.remove(planeName);
+			return planeName + " has successfully taken off!";
+		}
+	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(AirportApplication.class, args);
 	}
