@@ -9,14 +9,18 @@ public class AirportApplication {
 
 	ArrayList<String> planes = new ArrayList<>();
 
-	public int landPlane(String plane) {
+	public void landPlane(String plane) {
 		planes.add(plane);
-		return planes.size();
+	}
+
+	public boolean inHangar(String planeName){
+		return planes.indexOf(planeName) != -1;
 	}
 
 	public String takeOff(String planeName) {
-		int planeInd = planes.indexOf(planeName);
-		if (planeInd == -1) {
+		boolean planeInHangar = inHangar(planeName);
+
+		if (planeInHangar == false) {
 			return "This plane is not in the hangar!";
 		} else {
 			planes.remove(planeName);
@@ -24,9 +28,6 @@ public class AirportApplication {
 		}
 	}
 
-	public boolean inHangar(String planeName){
-		return 0 > planes.indexOf(planeName);
-	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(AirportApplication.class, args);

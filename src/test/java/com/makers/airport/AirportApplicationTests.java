@@ -18,7 +18,9 @@ class AirportApplicationTests {
 	@Test
 	public void landPlane() {
 		AirportApplication airport = new AirportApplication();
-		Assertions.assertEquals(1, airport.landPlane("planeOne"));
+		airport.landPlane("Plane One");
+		Assertions.assertEquals(1, airport.planes.size());
+		Assertions.assertEquals("Plane One", airport.planes.get(0));
 	}
 
 //	As an air traffic controller
@@ -30,18 +32,16 @@ class AirportApplicationTests {
 	public void takeOffPlane() {
 		AirportApplication airport = new AirportApplication();
 		airport.landPlane("Plane One");
-		airport.landPlane("Plane Two");
-		Assertions.assertEquals(2, airport.planes.size());
-		Assertions.assertEquals("Plane Two has successfully taken off!", airport.takeOff("Plane Two"));
 		Assertions.assertEquals(1, airport.planes.size());
-		Assertions.assertEquals("Plane One", airport.planes.get(0));
+		Assertions.assertEquals("Plane One has successfully taken off!", airport.takeOff("Plane One"));
+		Assertions.assertEquals(0, airport.planes.size());
+		Assertions.assertEquals("This plane is not in the hangar!", airport.takeOff("Plane Two"));
 	}
 
 //	Check Planes
 	public void checkHangar() {
 		AirportApplication airport = new AirportApplication();
 		airport.landPlane("Plane One");
-		airport.landPlane("Plane Two");
 		Assertions.assertEquals(true, airport.inHangar("Plane One"));
 		Assertions.assertEquals(false, airport.inHangar("Plane Three"));
 		airport.takeOff("Plane One");
