@@ -104,4 +104,16 @@ class AirportApplicationTests {
 
 	}
 
+//	As an air traffic controller
+//	To ensure safety
+//	I want to prevent landing when weather is stormy
+
+	@Test
+	@DisplayName("Prevent landing when weather is stormy")
+	public void getWeather() {
+		airport.landPlane("Plane One");
+		airport.isStormy = true;
+		assertEquals("You can't land, weather is stormy!", airport.landPlane("Plane Two"));
+	}
+
 }

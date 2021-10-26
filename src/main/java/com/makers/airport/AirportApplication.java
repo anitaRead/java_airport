@@ -1,6 +1,5 @@
 package com.makers.airport;
 
-import org.mockito.stubbing.Answer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.util.ArrayList;
@@ -18,6 +17,9 @@ public class AirportApplication {
 
 	public String landPlane(String plane) {
 		if(planes.size() < capacity) {
+			if(isStormy) {
+				return "You can't land, weather is stormy!";
+			}
 			planes.add(plane);
 			return plane + " has successfully landed!";
 		}
