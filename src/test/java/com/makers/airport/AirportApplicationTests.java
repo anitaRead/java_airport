@@ -5,6 +5,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+
 @SpringBootTest
 class AirportApplicationTests {
 
@@ -22,8 +27,8 @@ class AirportApplicationTests {
 	@DisplayName("Should land a single plane")
 	public void landPlane() {
 		airport.landPlane("Plane One");
-		Assertions.assertEquals(1, airport.planes.size());
-		Assertions.assertEquals("Plane One", airport.planes.get(0));
+		assertEquals(1, airport.planes.size());
+		assertEquals("Plane One", airport.planes.get(0));
 	}
 
 //	As an air traffic controller
@@ -35,10 +40,10 @@ class AirportApplicationTests {
 	@DisplayName("Should allow planes to take off")
 	public void takeOffPlane() {
 		airport.landPlane("Plane One");
-		Assertions.assertEquals(1, airport.planes.size());
-		Assertions.assertEquals("Plane One has successfully taken off!", airport.takeOff("Plane One"));
-		Assertions.assertEquals(0, airport.planes.size());
-		Assertions.assertEquals("This plane is not in the hangar!", airport.takeOff("Plane Two"));
+		assertEquals(1, airport.planes.size());
+		assertEquals("Plane One has successfully taken off!", airport.takeOff("Plane One"));
+		assertEquals(0, airport.planes.size());
+		assertEquals("This plane is not in the hangar!", airport.takeOff("Plane Two"));
 	}
 
 //	Check Planes
@@ -46,10 +51,10 @@ class AirportApplicationTests {
 	@DisplayName("Should check hangar for a certain plane")
 	public void checkHangar() {
 		airport.landPlane("Plane One");
-		Assertions.assertEquals(true, airport.inHangar("Plane One"));
-		Assertions.assertEquals(false, airport.inHangar("Plane Three"));
+		assertTrue(airport.inHangar("Plane One"));
+		Assertions.assertFalse(airport.inHangar("Plane Three"));
 		airport.takeOff("Plane One");
-		Assertions.assertEquals(false, airport.inHangar("Plane One"));
+		Assertions.assertFalse(airport.inHangar("Plane One"));
 
 	}
 
@@ -62,10 +67,41 @@ class AirportApplicationTests {
 		for(int i=0; i<5; i++){
 			airport.landPlane("Plane " + i);
 		}
-		Assertions.assertEquals("Failed to land, airport is full!", airport.landPlane("Plane 6"));
-		Assertions.assertEquals(5, airport.planes.size());
+		assertEquals("Failed to land, airport is full!", airport.landPlane("Plane 6"));
+		assertEquals(5, airport.planes.size());
 		airport.takeOff("Plane " + 1);
-		Assertions.assertEquals("Plane 6 has successfully landed!", airport.landPlane("Plane 6"));
+		assertEquals("Plane 6 has successfully landed!", airport.landPlane("Plane 6"));
+	}
+
+//	As the system designer
+//	So that the software can be used at many airports
+//	I would like a default airport capacity that can be overridden as appropriate
+
+	@Test
+	@DisplayName("Can change the airport capacity")
+	public void changeCapacity() {
+		assertEquals(5, airport.capacity);
+		airport.updateCapacity(8);
+		assertEquals(8, airport.capacity);
+		for(int i=0; i<5; i++){
+			airport.landPlane("Plane " + i);
+		}
+		Assertions.assertNotEquals("Failed to land, airport is full!", airport.landPlane("Plane 6"));
+		assertEquals(6, airport.planes.size());
+	}
+
+//	As an air traffic controller
+//	To ensure safety
+//	I want to prevent takeoff when weather is stormy
+
+	@Test
+	@DisplayName("Prevent take off when weather is stormy")
+	public void stormyWeather() {
+			airport.landPlane("Plane One");
+			assertTrue(airport.inHangar("Plane One"));
+			airport.isStormy = true;
+			assertEquals("Can not take off while weather is stormy!", airport.takeOff("Plane One"));
+
 	}
 
 }
