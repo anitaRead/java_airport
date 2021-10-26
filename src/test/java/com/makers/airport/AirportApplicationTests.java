@@ -1,13 +1,10 @@
 package com.makers.airport;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest
@@ -52,9 +49,9 @@ class AirportApplicationTests {
 	public void checkHangar() {
 		airport.landPlane("Plane One");
 		assertTrue(airport.inHangar("Plane One"));
-		Assertions.assertFalse(airport.inHangar("Plane Three"));
+		assertFalse(airport.inHangar("Plane Three"));
 		airport.takeOff("Plane One");
-		Assertions.assertFalse(airport.inHangar("Plane One"));
+		assertFalse(airport.inHangar("Plane One"));
 
 	}
 
@@ -86,7 +83,7 @@ class AirportApplicationTests {
 		for(int i=0; i<5; i++){
 			airport.landPlane("Plane " + i);
 		}
-		Assertions.assertNotEquals("Failed to land, airport is full!", airport.landPlane("Plane 6"));
+		assertNotEquals("Failed to land, airport is full!", airport.landPlane("Plane 6"));
 		assertEquals(6, airport.planes.size());
 	}
 

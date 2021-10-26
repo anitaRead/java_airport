@@ -42,6 +42,7 @@ public class AirportApplication {
 			planes.remove(planeName);
 			return planeName + " has successfully taken off!";
 		}
+		
 	}
 
 
